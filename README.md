@@ -66,4 +66,7 @@ sudo docker compose up server
 
 # rebuilds the image; necessary when Dockerfile or context is modified
 sudo docker compose up --build
+
+# force recreate containers; necessary when configuration is changed
+sudo docker compose up --force-recreate
 ```
