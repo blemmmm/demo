@@ -5,9 +5,29 @@ services:
       dockerfile: ./Dockerfile # path relative to context
     ports:
       - 127.0.0.1:3000:80
+  postgres:
+    image: postgres:17
+    ports:
+      - 127.0.0.1:5432:5432
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./postgres/entrypoint:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready --username=postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
   server:
     build:
       context: ./server
       dockerfile: ./Dockerfile # relative to context
     ports:
       - 127.0.0.1:8080:8080
+    environment:
+      POSTGRES_HOST: postgres
+    depends_on:
+      postgres:
+        condition: service_healthy 
