@@ -1,0 +1,13 @@
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: ./Dockerfile # path relative to context
+    ports:
+      - 127.0.0.1:3000:80
+  server:
+    build:
+      context: ./server
+      dockerfile: ./Dockerfile # relative to context
+    ports:
+      - 127.0.0.1:8080:8080
