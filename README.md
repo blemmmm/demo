@@ -55,6 +55,7 @@ sudo docker rm -f $(sudo docker ps -a -q)
 
 ```sh
 # run the client and server containers
+# visit http://localhost:3000 and http://localhost:8080
 sudo docker compose up
 
 # run only the client container
